@@ -10,13 +10,25 @@ export default function Modal({ onAdd }: props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if(title.trim()){
+      const newtodo:TaskCardProps = {
+        id: uuidv4(),
+        title,
+        description,
+        isDone: false,
+      };
+      onAdd(newtodo);
+      setTitle("");
+      setDescription("");
+    }
+  };
 
-  const titleOnchange = (event: any) => {
+  const titleOnchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
-  const descriptionOnchang = (event: any) => {
+  const descriptionOnchang = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
   };
 
@@ -60,7 +72,8 @@ export default function Modal({ onAdd }: props) {
             <button
               type="button"
               className="btn btn-success"
-              onClick={() => {}}
+              // onClick={() => {}}
+              onClick={handleSubmit}
             >
               Save
             </button>
